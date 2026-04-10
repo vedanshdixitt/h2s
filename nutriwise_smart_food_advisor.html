@@ -1,0 +1,333 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FDFAF5;--surface:#FFFFFF;--ink:#1A1410;--ink2:#6B5E54;--ink3:#A8998E;
+  --accent:#3B6D11;--accent-light:#EAF3DE;--accent-mid:#639922;
+  --warn:#BA7517;--warn-light:#FAEEDA;
+  --danger:#A32D2D;--danger-light:#FCEBEB;
+  --teal:#0F6E56;--teal-light:#E1F5EE;
+  --border:#E8E0D8;--radius:14px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+
+.app{max-width:800px;margin:0 auto;padding:1.5rem 1rem 3rem}
+
+.wordmark{font-family:'Fraunces',serif;font-size:26px;font-weight:300;letter-spacing:-0.5px;color:var(--ink)}
+.wordmark span{color:var(--accent-mid)}
+.tagline{font-size:12px;color:var(--ink3);letter-spacing:0.8px;text-transform:uppercase;margin-top:2px}
+
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+
+.context-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+.ctx-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px;cursor:pointer;transition:border-color .2s}
+.ctx-card:hover{border-color:var(--accent-mid)}
+.ctx-card.active{border-color:var(--accent-mid);background:var(--accent-light)}
+.ctx-label{font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:4px}
+.ctx-val{font-size:14px;font-weight:500;color:var(--ink)}
+.ctx-icon{font-size:18px;margin-bottom:6px}
+
+.section-title{font-family:'Fraunces',serif;font-size:17px;font-weight:500;color:var(--ink);margin-bottom:1rem}
+
+.meal-input-area{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.5rem}
+.meal-row{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.meal-input{flex:1;border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);outline:none;transition:border-color .2s}
+.meal-input:focus{border-color:var(--accent-mid)}
+.btn{border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--ink)}
+.btn:hover{background:var(--bg)}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:#27500A}
+.quick-add{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-size:12px;padding:5px 12px;border-radius:20px;border:1px solid var(--border);cursor:pointer;background:var(--surface);color:var(--ink2);transition:all .15s}
+.chip:hover{background:var(--accent-light);border-color:var(--accent-mid);color:var(--accent)}
+
+.score-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem}
+.score-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;position:relative;overflow:hidden}
+.score-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent-mid)}
+.score-card.warn::before{background:var(--warn)}
+.score-card.danger::before{background:var(--danger)}
+.score-num{font-family:'Fraunces',serif;font-size:42px;font-weight:300;color:var(--ink);line-height:1}
+.score-label{font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.6px;margin-top:4px}
+.score-badge{display:inline-block;font-size:11px;padding:3px 9px;border-radius:12px;margin-top:8px;font-weight:500}
+.badge-good{background:var(--accent-light);color:var(--accent)}
+.badge-ok{background:var(--warn-light);color:var(--warn)}
+.badge-low{background:var(--danger-light);color:var(--danger)}
+
+.bar-track{height:6px;border-radius:3px;background:var(--border);overflow:hidden;margin-top:12px}
+.bar-fill{height:100%;border-radius:3px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+.bar-green{background:var(--accent-mid)}
+.bar-warn{background:var(--warn)}
+.bar-red{background:var(--danger)}
+
+.insight-list{display:flex;flex-direction:column;gap:10px;margin-bottom:1.5rem}
+.insight{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.insight-dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.dot-green{background:var(--accent-mid)}
+.dot-warn{background:var(--warn)}
+.dot-red{background:var(--danger)}
+.insight-text{font-size:13.5px;color:var(--ink2);line-height:1.55}
+.insight-text strong{color:var(--ink);font-weight:500}
+
+.macro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.5rem}
+.macro-cell{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center}
+.macro-num{font-family:'Fraunces',serif;font-size:22px;font-weight:300;color:var(--ink)}
+.macro-unit{font-size:10px;color:var(--ink3);margin-top:1px}
+.macro-name{font-size:11px;color:var(--ink3);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px}
+
+.suggest-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
+.suggest-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s}
+.suggest-card:hover{border-color:var(--accent-mid);background:var(--accent-light)}
+.suggest-name{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:3px}
+.suggest-why{font-size:12px;color:var(--ink3);line-height:1.4}
+.suggest-tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:8px;background:var(--teal-light);color:var(--teal);margin-top:6px;font-weight:500}
+
+.habit-row{display:flex;gap:8px;margin-bottom:1.5rem;overflow-x:auto;padding-bottom:4px}
+.day-chip{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);min-width:52px}
+.day-chip.done{background:var(--accent-light);border-color:var(--accent-mid)}
+.day-chip.today{border-color:var(--ink);background:var(--surface)}
+.day-name{font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.4px}
+.day-dot{width:10px;height:10px;border-radius:50%;background:var(--border)}
+.day-chip.done .day-dot{background:var(--accent-mid)}
+.day-chip.today .day-dot{background:var(--ink)}
+.streak-note{font-size:12px;color:var(--ink3);padding:8px 12px;background:var(--accent-light);border-radius:8px;display:inline-block}
+
+.tab-bar{display:flex;gap:4px;margin-bottom:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:4px}
+.tab{flex:1;padding:9px;font-size:13px;font-weight:500;border:none;background:none;cursor:pointer;border-radius:7px;color:var(--ink3);transition:all .15s;font-family:'DM Sans',sans-serif}
+.tab.active{background:var(--bg);color:var(--ink);border:1px solid var(--border)}
+
+.pane{display:none}
+.pane.active{display:block}
+
+.time-label{font-size:12px;color:var(--ink3);margin-bottom:6px}
+.meal-log-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.meal-log-item:last-child{border-bottom:none}
+.log-name{font-size:14px;color:var(--ink);font-weight:500}
+.log-cal{font-size:12px;color:var(--ink3)}
+.log-score{font-size:12px;padding:3px 9px;border-radius:8px;font-weight:500}
+
+.ring-wrap{display:flex;justify-content:center;margin:1rem 0}
+svg.ring text{font-family:'Fraunces',serif}
+</style>
+
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">NutriWise — smart food advisor dashboard showing meal scoring, nutrition insights, and healthy swap suggestions</h2>
+
+<div class="app">
+  <div class="header">
+    <div>
+      <div class="wordmark">Nutri<span>Wise</span></div>
+      <div class="tagline">Your contextual food advisor</div>
+    </div>
+    <button class="btn" onclick="sendPrompt('How does NutriWise personalize food recommendations?')">How it works ↗</button>
+  </div>
+
+  <div class="context-strip">
+    <div class="ctx-card active" onclick="toggleCtx(this,'morning')">
+      <div class="ctx-icon">🕗</div>
+      <div class="ctx-label">Time of day</div>
+      <div class="ctx-val" id="ctx-time">Morning</div>
+    </div>
+    <div class="ctx-card" onclick="toggleCtx(this,'active')">
+      <div class="ctx-icon">🏃</div>
+      <div class="ctx-label">Activity level</div>
+      <div class="ctx-val" id="ctx-act">Sedentary</div>
+    </div>
+    <div class="ctx-card" onclick="toggleCtx(this,'goal')">
+      <div class="ctx-icon">🎯</div>
+      <div class="ctx-label">Current goal</div>
+      <div class="ctx-val" id="ctx-goal">Weight loss</div>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab active" onclick="switchTab('log')">Log meal</button>
+    <button class="tab" onclick="switchTab('today')">Today's summary</button>
+    <button class="tab" onclick="switchTab('habits')">Habit tracker</button>
+  </div>
+
+  <div class="pane active" id="pane-log">
+    <div class="section-title">What did you eat?</div>
+    <div class="meal-input-area">
+      <div class="meal-row">
+        <input class="meal-input" id="meal-field" placeholder="e.g. oatmeal with banana and honey…" type="text" onkeydown="if(event.key==='Enter')scoreMeal()">
+        <button class="btn btn-primary" onclick="scoreMeal()">Analyse</button>
+      </div>
+      <div class="quick-add">
+        <span style="font-size:12px;color:var(--ink3);align-self:center;margin-right:4px">Quick add:</span>
+        <span class="chip" onclick="setMeal('Dal chawal with salad')">Dal chawal + salad</span>
+        <span class="chip" onclick="setMeal('Aloo paratha with butter')">Aloo paratha + butter</span>
+        <span class="chip" onclick="setMeal('Poha with groundnuts')">Poha + groundnuts</span>
+        <span class="chip" onclick="setMeal('Biryani with raita')">Biryani + raita</span>
+        <span class="chip" onclick="setMeal('Idli sambar')">Idli sambar</span>
+      </div>
+    </div>
+
+    <div id="result-area" style="display:none">
+      <div class="score-row">
+        <div class="score-card" id="score-overall">
+          <div class="score-num" id="score-val">—</div>
+          <div class="score-label">Nutrition score</div>
+          <div class="score-badge" id="score-badge">—</div>
+          <div class="bar-track" style="margin-top:12px"><div class="bar-fill bar-green" id="score-bar" style="width:0%"></div></div>
+        </div>
+        <div class="score-card" id="score-cal-card">
+          <div class="score-num" id="cal-val">—</div>
+          <div class="score-label">Estimated kcal</div>
+          <div class="score-badge" id="cal-badge">—</div>
+          <div class="bar-track" style="margin-top:12px"><div class="bar-fill" id="cal-bar" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="macro-grid">
+        <div class="macro-cell"><div class="macro-num" id="m-carb">—</div><div class="macro-unit">g</div><div class="macro-name">Carbs</div></div>
+        <div class="macro-cell"><div class="macro-num" id="m-prot">—</div><div class="macro-unit">g</div><div class="macro-name">Protein</div></div>
+        <div class="macro-cell"><div class="macro-num" id="m-fat">—</div><div class="macro-unit">g</div><div class="macro-name">Fat</div></div>
+        <div class="macro-cell"><div class="macro-num" id="m-fiber">—</div><div class="macro-unit">g</div><div class="macro-name">Fiber</div></div>
+      </div>
+
+      <div class="section-title">Contextual insights</div>
+      <div class="insight-list" id="insights"></div>
+
+      <div class="section-title">Smarter swaps for you</div>
+      <div class="suggest-grid" id="swaps"></div>
+    </div>
+  </div>
+
+  <div class="pane" id="pane-today">
+    <div class="section-title">Today's nutrition ring</div>
+    <div class="ring-wrap">
+      <svg class="ring" width="200" height="200" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="76" fill="none" stroke="#E8E0D8" stroke-width="18"/>
+        <circle cx="100" cy="100" r="76" fill="none" stroke="#639922" stroke-width="18"
+          stroke-dasharray="478" stroke-dashoffset="191" stroke-linecap="round"
+          transform="rotate(-90 100 100)"/>
+        <text x="100" y="96" text-anchor="middle" font-size="28" fill="#1A1410">1340</text>
+        <text x="100" y="115" text-anchor="middle" font-size="12" fill="#A8998E">of 1800 kcal</text>
+      </svg>
+    </div>
+    <div class="macro-grid" style="margin-bottom:1.5rem">
+      <div class="macro-cell"><div class="macro-num">168</div><div class="macro-unit">g</div><div class="macro-name">Carbs</div></div>
+      <div class="macro-cell"><div class="macro-num">54</div><div class="macro-unit">g</div><div class="macro-name">Protein</div></div>
+      <div class="macro-cell"><div class="macro-num">38</div><div class="macro-unit">g</div><div class="macro-name">Fat</div></div>
+      <div class="macro-cell"><div class="macro-num">14</div><div class="macro-unit">g</div><div class="macro-name">Fiber</div></div>
+    </div>
+    <div class="section-title">Meals logged today</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem">
+      <div class="time-label">Breakfast · 7:45 am</div>
+      <div class="meal-log-item"><div><div class="log-name">Poha with groundnuts</div></div><div style="display:flex;align-items:center;gap:10px"><span class="log-cal">310 kcal</span><span class="log-score badge-good" style="background:var(--accent-light);color:var(--accent)">78</span></div></div>
+      <div style="height:12px"></div>
+      <div class="time-label">Lunch · 1:20 pm</div>
+      <div class="meal-log-item"><div><div class="log-name">Dal chawal with salad</div></div><div style="display:flex;align-items:center;gap:10px"><span class="log-cal">580 kcal</span><span class="log-score badge-good" style="background:var(--accent-light);color:var(--accent)">84</span></div></div>
+      <div style="height:12px"></div>
+      <div class="time-label">Snack · 4:00 pm</div>
+      <div class="meal-log-item"><div><div class="log-name">Masala chai + biscuits</div></div><div style="display:flex;align-items:center;gap:10px"><span class="log-cal">220 kcal</span><span class="log-score badge-ok" style="background:var(--warn-light);color:var(--warn)">52</span></div></div>
+      <div style="height:12px"></div>
+      <div class="time-label">Dinner target</div>
+      <div class="meal-log-item" style="opacity:.5"><div><div class="log-name">Not yet logged</div></div><div><span class="log-cal">~460 kcal remaining</span></div></div>
+    </div>
+  </div>
+
+  <div class="pane" id="pane-habits">
+    <div class="section-title">Weekly streak</div>
+    <div class="habit-row">
+      <div class="day-chip done"><div class="day-name">Mon</div><div class="day-dot"></div></div>
+      <div class="day-chip done"><div class="day-name">Tue</div><div class="day-dot"></div></div>
+      <div class="day-chip done"><div class="day-name">Wed</div><div class="day-dot"></div></div>
+      <div class="day-chip done"><div class="day-name">Thu</div><div class="day-dot"></div></div>
+      <div class="day-chip today"><div class="day-name">Fri</div><div class="day-dot"></div></div>
+      <div class="day-chip"><div class="day-name">Sat</div><div class="day-dot"></div></div>
+      <div class="day-chip"><div class="day-name">Sun</div><div class="day-dot"></div></div>
+    </div>
+    <div class="streak-note" style="margin-bottom:1.5rem">🔥 4-day logging streak — keep it going!</div>
+
+    <div class="section-title">Habit goals</div>
+    <div class="insight-list">
+      <div class="insight">
+        <div class="insight-dot dot-green"></div>
+        <div class="insight-text"><strong>Eat 25g+ fiber daily</strong> — You've hit this 3 of 4 days this week. Today you're at 14g — add a bowl of sabzi at dinner.</div>
+      </div>
+      <div class="insight">
+        <div class="insight-dot dot-green"></div>
+        <div class="insight-text"><strong>No refined sugar before noon</strong> — Maintained every day this week. Your morning routine is locked in.</div>
+      </div>
+      <div class="insight">
+        <div class="insight-dot dot-warn"></div>
+        <div class="insight-text"><strong>Drink 8 glasses of water</strong> — Average 5.5 glasses this week. Try setting a reminder after each meal.</div>
+      </div>
+      <div class="insight">
+        <div class="insight-dot dot-red"></div>
+        <div class="insight-text"><strong>Eat protein with every meal</strong> — Missed at breakfast today. Adding curd, eggs, or sprouts helps reach your goal.</div>
+      </div>
+    </div>
+    <button class="btn" style="width:100%;margin-top:0.5rem" onclick="sendPrompt('Suggest 3 new eating habit goals based on my current patterns')">Suggest new habit goals ↗</button>
+  </div>
+</div>
+
+<script>
+const DB={
+  "oatmeal with banana and honey":{score:85,kcal:320,c:58,p:9,f:5,fi:6,badge:"Excellent",tier:"good",insights:[{t:"good",m:"High-fiber start — oats and banana give sustained energy without blood sugar spikes"},{t:"warn",m:"Honey adds <strong>~18g free sugar</strong>; consider replacing with a pinch of cinnamon on active rest days"},{t:"good",m:"Well-timed for morning — complex carbs now will power your focus for 3–4 hours"}],swaps:[{n:"Add Greek yogurt",w:"Doubles protein to ~17g — much better for your weight loss goal",t:"Protein boost"},{n:"Swap honey → cinnamon",w:"Saves 70 kcal and all 18g of added sugar with zero flavour sacrifice",t:"Lower sugar"}]},
+  "aloo paratha with butter":{score:48,kcal:620,c:78,p:11,f:22,fi:4,badge:"Moderate",tier:"warn",insights:[{t:"warn",m:"<strong>620 kcal</strong> is 34% of a 1800-kcal weight-loss budget in one meal"},{t:"red",m:"Refined flour (maida) raises blood sugar quickly — if using atta, score improves significantly"},{t:"warn",m:"Butter adds saturated fat; one paratha with ghee is fine, two with butter becomes calorie-dense"}],swaps:[{n:"Switch to atta paratha",w:"Same flavour, lower GI, more fibre — score jumps to ~65",t:"Smarter carb"},{n:"Replace butter with curd",w:"Saves ~120 kcal, adds protein and probiotics",t:"Better fat"}]},
+  "poha with groundnuts":{score:78,kcal:310,c:52,p:9,f:7,fi:3,badge:"Good",tier:"good",insights:[{t:"good",m:"Flattened rice has moderate GI — groundnuts slow digestion and add healthy fats"},{t:"warn",m:"Protein is low at 9g for breakfast; add a boiled egg or sprinkle roasted chana"},{t:"good",m:"Light and well-portioned for a weight loss goal — leaves room for a satisfying lunch"}],swaps:[{n:"Add boiled egg or sprouts",w:"Brings protein to ~16g — much better satiety through the morning",t:"Protein boost"},{n:"Add turmeric + mustard seeds",w:"Anti-inflammatory spices that enhance flavour without extra calories",t:"Micronutrients"}]},
+  "biryani with raita":{score:61,kcal:710,c:92,p:24,f:18,fi:3,badge:"Moderate",tier:"warn",insights:[{t:"warn",m:"<strong>710 kcal</strong> is high — excellent for an active day; challenging on a sedentary one"},{t:"good",m:"Raita is a smart pairing — probiotics and protein that lower the meal's glycemic impact"},{t:"warn",m:"Biryani is low in fibre; follow up dinner with a light vegetable soup or salad tonight"}],swaps:[{n:"Brown rice biryani",w:"Higher fibre and lower GI, nearly identical taste when spiced well",t:"Smarter carb"},{n:"Reduce portion by 25%",w:"Saves ~175 kcal — pair with a larger salad to stay full",t:"Portion control"}]},
+  "idli sambar":{score:82,kcal:290,c:52,p:12,f:3,fi:5,badge:"Very good",tier:"good",insights:[{t:"good",m:"Fermented rice and lentils — excellent gut-health combination with natural probiotics"},{t:"good",m:"Low fat, moderate protein, and portion-friendly for your weight loss goal"},{t:"warn",m:"Consider adding coconut chutney for healthy fats — it improves satiety and micronutrient absorption"}],swaps:[{n:"Add coconut chutney",w:"Adds healthy medium-chain fats that keep you full longer",t:"Healthy fats"},{n:"Ragi idli variant",w:"Higher calcium and fibre; nutritionally superior and very similar taste",t:"Upgrade"}]},
+  "dal chawal with salad":{score:84,kcal:580,c:88,p:22,f:8,fi:9,badge:"Very good",tier:"good",insights:[{t:"good",m:"Complete protein from dal + rice combination — essential amino acids covered"},{t:"good",m:"<strong>9g fibre</strong> from salad and dal is excellent — you'll hit your daily goal easily"},{t:"warn",m:"Calorie-dense but very nutritious — suitable as your main meal on a weight loss plan"}],swaps:[{n:"Add a squeeze of lemon",w:"Boosts iron absorption from dal by up to 3× — zero calories, big impact",t:"Micronutrient"},{n:"Swap white rice → brown rice",w:"Increases fibre to ~13g and sustains energy longer",t:"Smarter carb"}]}
+};
+
+function setMeal(v){document.getElementById('meal-field').value=v}
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach((b,i)=>{b.classList.toggle('active',['log','today','habits'][i]===t)});
+  document.querySelectorAll('.pane').forEach(p=>{p.classList.toggle('active',p.id==='pane-'+t)});
+}
+
+const ctxTime=['Morning','Afternoon','Evening'],ctxAct=['Sedentary','Lightly active','Very active'],ctxGoal=['Weight loss','Muscle gain','Maintenance'];
+const ctxIdxes={morning:0,active:0,goal:0};
+function toggleCtx(el,type){
+  el.classList.toggle('active');
+  if(type==='morning'){ctxIdxes.morning=(ctxIdxes.morning+1)%3;document.getElementById('ctx-time').textContent=ctxTime[ctxIdxes.morning]}
+  if(type==='active'){ctxIdxes.active=(ctxIdxes.active+1)%3;document.getElementById('ctx-act').textContent=ctxAct[ctxIdxes.active]}
+  if(type==='goal'){ctxIdxes.goal=(ctxIdxes.goal+1)%3;document.getElementById('ctx-goal').textContent=ctxGoal[ctxIdxes.goal]}
+}
+
+function scoreMeal(){
+  const raw=document.getElementById('meal-field').value.trim().toLowerCase();
+  const key=Object.keys(DB).find(k=>raw.includes(k.split(' ')[0])||raw===k)||Object.keys(DB)[Math.floor(Math.random()*DB.length)];
+  const d=DB[key]||DB["dal chawal with salad"];
+  document.getElementById('result-area').style.display='block';
+
+  const sc=document.getElementById('score-val'); sc.textContent=d.score;
+  const sb=document.getElementById('score-bar'); sb.style.width=d.score+'%';
+  sb.className='bar-fill '+(d.score>=70?'bar-green':d.score>=50?'bar-warn':'bar-red');
+  const ov=document.getElementById('score-overall');
+  ov.className='score-card '+(d.score>=70?'':''+d.score>=50?'warn':'danger');
+  const badge=document.getElementById('score-badge');
+  badge.textContent=d.badge;
+  badge.className='score-badge '+(d.score>=70?'badge-good':d.score>=50?'badge-ok':'badge-low');
+
+  document.getElementById('cal-val').textContent=d.kcal;
+  const cb=document.getElementById('cal-bar');
+  const calPct=Math.min(100,Math.round(d.kcal/1800*100));
+  cb.style.width=calPct+'%';
+  cb.className='bar-fill '+(calPct<30?'bar-green':calPct<45?'bar-warn':'bar-red');
+  const calBadge=document.getElementById('cal-badge');
+  calBadge.textContent=calPct+'% of daily budget';
+  calBadge.className='score-badge '+(calPct<30?'badge-good':calPct<45?'badge-ok':'badge-low');
+
+  document.getElementById('m-carb').textContent=d.c;
+  document.getElementById('m-prot').textContent=d.p;
+  document.getElementById('m-fat').textContent=d.f;
+  document.getElementById('m-fiber').textContent=d.fi;
+
+  const ins=document.getElementById('insights'); ins.innerHTML='';
+  d.insights.forEach(i=>{
+    ins.innerHTML+=`<div class="insight"><div class="insight-dot ${i.t==='good'?'dot-green':i.t==='warn'?'dot-warn':'dot-red'}"></div><div class="insight-text">${i.m}</div></div>`;
+  });
+
+  const sw=document.getElementById('swaps'); sw.innerHTML='';
+  d.swaps.forEach(s=>{
+    sw.innerHTML+=`<div class="suggest-card" onclick="sendPrompt('Tell me more about swapping to ${s.n} for my meals')"><div class="suggest-name">${s.n}</div><div class="suggest-why">${s.w}</div><span class="suggest-tag">${s.t}</span></div>`;
+  });
+
+  document.getElementById('result-area').scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
