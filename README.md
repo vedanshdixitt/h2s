@@ -1,244 +1,173 @@
-# H2S
+# 🥗 NutriWise — Contextual Smart Food Advisor
 
-<div align="center">
+> **A data-driven nutrition assistant that helps individuals make smarter food choices based on real-time context, behaviour patterns, and personal health goals.**
 
-![GitHub repo size](https://img.shields.io/github/repo-size/vedanshdixitt/h2s)
-![GitHub stars](https://img.shields.io/github/stars/vedanshdixitt/h2s?style=social)
-![GitHub forks](https://img.shields.io/github/forks/vedanshdixitt/h2s?style=social)
-![GitHub issues](https://img.shields.io/github/issues/vedanshdixitt/h2s)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-
-### 🚀 A modern and scalable project built for performance, usability, and clean architecture.
-
-</div>
+🌐 **Live Demo:** [nutriwise-792866830632.asia-south1.run.app](https://nutriwise-792866830632.asia-south1.run.app/)
+☁️ **Deployed on:** Google Cloud Run · `asia-south1`
 
 ---
 
-## 📌 Overview
+## 📌 Problem Statement
 
-H2S is a powerful and extensible application designed to deliver a seamless user experience with a clean and maintainable architecture. The project focuses on efficiency, scalability, and developer-friendly workflows.
+Most people make poor food choices not because they lack knowledge — but because they lack **context-aware guidance** at the right moment. Generic diet apps give the same advice to everyone regardless of time of day, activity level, or personal goals. NutriWise solves this by adapting every recommendation to the user's current situation.
 
-Whether you're exploring the codebase, contributing to development, or deploying the project in production, H2S provides a structured foundation for rapid development and innovation.
+---
+
+## 💡 Solution
+
+NutriWise is a **contextual food intelligence web app** that:
+
+- Analyses any meal and scores it on nutrition quality (0–100)
+- Adapts recommendations based on **time of day**, **activity level**, and **health goal**
+- Suggests smart, practical **food swaps** tailored to the user's context
+- Tracks **eating habits** and **weekly streaks** to reinforce long-term behaviour change
+- Provides a full **daily nutrition summary** with macros, calorie ring, and meal history
 
 ---
 
 ## ✨ Features
 
-* ⚡ Fast and optimized performance
-* 🎨 Clean and modern UI/UX
-* 🔒 Secure and scalable architecture
-* 📱 Responsive across devices
-* 🧩 Modular code structure
-* 🚀 Easy deployment workflow
-* 🛠 Developer-friendly setup
-* 📂 Organized project architecture
+### 🍽️ Meal Analyser
+- Type any meal and get an instant nutrition score
+- Estimated calories, carbs, protein, fat, and fiber breakdown
+- Context-aware insights explaining *why* a food is good or bad *for you right now*
+
+### 🔄 Smart Swaps
+- 2 actionable food substitutions per meal
+- Ranked by impact — specific, not generic ("swap butter → curd saves 120 kcal + adds protein")
+
+### 📊 Today's Summary
+- Visual calorie ring showing consumed vs. remaining
+- Full macro progress bars
+- Chronological meal log with per-meal scores
+
+### 🏆 Habit Tracker
+- Weekly streak calendar
+- Personalised habit goals (fiber target, protein per meal, sugar limits, hydration)
+- Progress indicators with specific corrective suggestions
+
+### ⚙️ Context Engine
+- **Time of Day** — Morning / Afternoon / Evening adjusts energy and sugar guidance
+- **Activity Level** — Sedentary / Lightly active / Very active changes calorie thresholds
+- **Health Goal** — Weight loss / Muscle gain / Maintenance shifts macro priorities
 
 ---
 
-## 🏗️ Tech Stack
+## 🛠️ Tech Stack
 
-> Update this section according to your project.
-
-### Frontend
-
-* React / Next.js
-* Tailwind CSS
-* TypeScript / JavaScript
-
-### Backend
-
-* Node.js
-* Express.js
-
-### Database
-
-* MongoDB / PostgreSQL
-
-### Tools & Deployment
-
-* Git & GitHub
-* Docker
-* Vercel / Render / Netlify
+| Layer | Technology |
+|---|---|
+| Frontend | HTML5, CSS3, Vanilla JavaScript |
+| Web Server | Nginx (Alpine) |
+| Containerisation | Docker |
+| Cloud Platform | Google Cloud Run |
+| CI/CD | Manual deploy via `gcloud` CLI |
+| Region | `asia-south1` (Mumbai) |
 
 ---
 
-## 📁 Project Structure
+## 🚀 Deployment Guide
+
+### Prerequisites
+- Google Cloud account with a project created
+- `gcloud` CLI installed or use Cloud Shell
+
+### Clone & Deploy
 
 ```bash
-h2s/
-├── client/             # Frontend source code
-├── server/             # Backend source code
-├── public/             # Static assets
-├── src/
-│   ├── components/     # Reusable UI components
-│   ├── pages/          # Application pages/routes
-│   ├── services/       # API services
-│   ├── utils/          # Helper utilities
-│   └── hooks/          # Custom hooks
-├── .env.example
-├── package.json
-└── README.md
-```
-
----
-
-## ⚙️ Installation
-
-### 1️⃣ Clone the Repository
-
-```bash
+# Clone the repository
 git clone https://github.com/vedanshdixitt/h2s.git
-```
-
-### 2️⃣ Navigate to the Project Directory
-
-```bash
 cd h2s
+
+# Enable required GCP APIs
+gcloud services enable run.googleapis.com cloudbuild.googleapis.com
+
+# Deploy to Cloud Run
+gcloud run deploy nutriwise \
+  --source . \
+  --platform managed \
+  --region asia-south1 \
+  --allow-unauthenticated \
+  --port 8080
 ```
 
-### 3️⃣ Install Dependencies
+### Repository Structure
 
-```bash
-npm install
 ```
-
-or
-
-```bash
-yarn install
-```
-
----
-
-## ▶️ Running the Project
-
-### Development Mode
-
-```bash
-npm run dev
-```
-
-### Production Build
-
-```bash
-npm run build
-npm start
+h2s/
+├── nutriwise_smart_food_advisor.html   # Main application
+├── Dockerfile                          # Container config
+├── nginx.conf                          # Web server config
+└── README.md                           # This file
 ```
 
 ---
 
-## 🔑 Environment Variables
+## 📸 App Walkthrough
 
-Create a `.env` file in the root directory and add the following:
+### Log Meal Tab
+Enter any meal (e.g. "Dal chawal with salad") or tap a quick-add chip → get an instant score, macro breakdown, and contextual insights within seconds.
 
-```env
-PORT=5000
-DATABASE_URL=your_database_url
-JWT_SECRET=your_secret_key
-API_KEY=your_api_key
+### Today's Summary Tab
+Visual calorie ring + full macro progress bars + chronological meal log with per-meal nutrition scores.
+
+### Habit Tracker Tab
+Weekly streak dots + 4 active habit goals with specific, actionable progress feedback.
+
+---
+
+## 🧠 How the Context Engine Works
+
+```
+User Input (meal name)
+        +
+Context Signals:
+  ├── Time of Day    → adjusts energy/sugar guidance
+  ├── Activity Level → changes calorie thresholds  
+  └── Health Goal    → shifts macro priorities
+        ↓
+Nutrition Score (0–100)
+        +
+Contextual Insights (3 per meal)
+        +
+Smart Swaps (2 per meal)
 ```
 
 ---
 
-## 📸 Screenshots
+## 🎯 Use Cases
 
-> Add screenshots or GIFs here.
-
-| Home Page                                    | Dashboard                                         |
-| -------------------------------------------- | ------------------------------------------------- |
-| ![Home](https://via.placeholder.com/500x300) | ![Dashboard](https://via.placeholder.com/500x300) |
+- **Weight loss** — scores meals low in fibre/protein, flags excess sugar and refined carbs
+- **Muscle gain** — prioritises protein-dense meals, flags insufficient post-workout nutrition
+- **Maintenance** — balanced approach, highlights micronutrient gaps and portion concerns
 
 ---
 
-## 🚀 Deployment
+## 🌱 Future Roadmap
 
-### Deploy on Vercel
-
-```bash
-vercel
-```
-
-### Deploy using Docker
-
-```bash
-docker build -t h2s .
-docker run -p 3000:3000 h2s
-```
-
----
-
-## 🧪 Testing
-
-Run tests using:
-
-```bash
-npm test
-```
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome!
-
-### Steps to Contribute
-
-1. Fork the repository
-2. Create a new branch
-
-```bash
-git checkout -b feature/your-feature-name
-```
-
-3. Commit your changes
-
-```bash
-git commit -m "Add your message"
-```
-
-4. Push to the branch
-
-```bash
-git push origin feature/your-feature-name
-```
-
-5. Open a Pull Request
-
----
-
-## 📋 Roadmap
-
-* [ ] Add authentication system
-* [ ] Improve UI responsiveness
-* [ ] Add API documentation
-* [ ] Integrate CI/CD pipeline
-* [ ] Add unit and integration tests
-* [ ] Dockerize the application
-
----
-
-## 🛡️ License
-
-This project is licensed under the MIT License.
+- [ ] Barcode scanner for packaged food analysis
+- [ ] Backend API with persistent meal history (Firebase / Supabase)
+- [ ] Wearable integration (step count → dynamic calorie target)
+- [ ] Multilingual support for regional Indian cuisine database
+- [ ] PWA / mobile app version
 
 ---
 
 ## 👨‍💻 Author
 
-### Vedansh Dixit
+**Vedansh Dixit**
+B.Tech Computer Science & Engineering — VIT Bhopal University (2023–2027)
 
-* GitHub: [https://github.com/vedanshdixitt](https://github.com/vedanshdixitt)
+[![GitHub](https://img.shields.io/badge/GitHub-vedanshdixitt-181717?style=flat&logo=github)](https://github.com/vedanshdixitt)
 
 ---
 
-## 🌟 Support
+## 📄 License
 
-If you found this project useful, consider giving it a ⭐ on GitHub.
+This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
 <div align="center">
-
-Made with ❤️ by Vedansh Dixit
-
+  Built with ❤️ for a healthier India · Deployed on Google Cloud
 </div>
